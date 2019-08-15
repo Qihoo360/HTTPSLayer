@@ -5,7 +5,7 @@
 
 `业务管理` - `业务列表` 即可进入到业务管理的主界面。
 
-![](https://git.corp.qihoo.net/qssweb/360so_https_backend/raw/feature/opensource/web/document/images/BasicInfomationConfiguration_index_001.png)
+![](images/BasicInfomationConfiguration_index_001.png)
 
 该页面下提供如下功能
 
@@ -29,7 +29,7 @@
 
 通常一个完整配置好的业务详情如下：
 
-![](https://git.corp.qihoo.net/qssweb/360so_https_backend/raw/feature/opensource/web/document/images/BusinessInfomation_view_001.png)
+![](images/BusinessInfomation_view_001.png)
 
 包括如下信息
 
@@ -64,12 +64,12 @@
 
 ### 创建业务
 
-![](https://raw.githubusercontent.com/Qihoo360/HTTPSLayer/master/web/document/images/BasicInfomationConfiguration_add_001.png)
+![](images/BasicInfomationConfiguration_add_001.png)
 
 
 登入到本系统后，依次点击`业务管理` - `业务列表` - `添加业务`， 进入到添加业务的页面
 
-![](https://raw.githubusercontent.com/Qihoo360/HTTPSLayer/master/web/document/images/BasicInfomationConfiguration_add_002.png)
+![](images/BasicInfomationConfiguration_add_002.png)
 
 请按照真实情况配置如下项：
 
@@ -84,7 +84,7 @@
 
 ### 修改业务
 
-![](https://raw.githubusercontent.com/Qihoo360/HTTPSLayer/master/web/document/images/BasicInfomationConfiguration_update_001.png)
+![](images/BasicInfomationConfiguration_update_001.png)
 
 通过在 `业务管理` - `业务列表` 点击`修改` 按钮，进入到业务的基本信息修改页面，
 在这里你可以按照`创建业务`时的填写规则来更新业务的基本信息，
@@ -96,7 +96,7 @@
 
 通过在 `业务管理` - `业务列表` 下，点击 `证书配置` 进入到证书配置的页面
 
-![](https://raw.githubusercontent.com/Qihoo360/HTTPSLayer/master/web/document/images/CertificateAssociatedConfiguration_001.png)
+![](images/CertificateAssociatedConfiguration_001.png)
 
 选择该业务域名对应的证书即可。
 
@@ -112,7 +112,7 @@
 通过在 `业务管理` - `业务列表` 下，点击 `负载均衡配置` 进入到负载均衡配置的页面
 
 
-![](https://raw.githubusercontent.com/Qihoo360/HTTPSLayer/master/web/document/images/LoadBalancingConfiguration.png)
+![](images/LoadBalancingConfiguration.png)
 
 接入层可能部署在多个集群下，业务也会部署在多个集群下，
 
