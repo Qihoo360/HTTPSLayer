@@ -1,0 +1,45 @@
+- 依赖安装
+    - OpenResty `Version:1.11.2.3`
+    - LuaJIT `Version:2.1.0-beta2`
+    - Lua `Version:5.1.4`
+    - Redis `Version:2.8.20`
+- 支持方式
+    - 虚拟机/物理机
+- 使用
+    - 通用配置
+        - conf/conf.d
+        - &nbsp;&nbsp;&nbsp;&nbsp;└── example.com
+        - &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ http.conf `http相关配置`
+        - &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ ssl.conf `https相关配置`
+        - &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ upstream.conf `upstream相关配置`
+        - lua/config
+        - &nbsp;&nbsp;&nbsp;&nbsp;└── server_config
+        - &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ example.conf `对应机房的配置（包含获取配置ip、配置更新间隔时间、redis配置等）`
+        - &nbsp;&nbsp;&nbsp;&nbsp;└── common.lua `公共变量配置`
+        - &nbsp;&nbsp;&nbsp;&nbsp;└── idc.lua `机房变量配置`
+    - 新增业务的配置
+        - 1.cp -r qfe/conf/conf.d/example.com qfe/conf/conf.d/XXX.com
+        - 2.修改 qfe/conf/conf.d/XXX.com/http.conf中
+            - server_name <业务的域名>;
+            - set $QFE_PID <业务在后台填写的唯一标识>;
+        - 3.修改 qfe/conf/conf.d/XXX.com/ssl.conf中
+            - server_name <业务的域名>;
+            - set $QFE_PID <业务在后台填写的唯一标识>;
+        - 3.修改 qfe/conf/conf.d/XXX.com/upstream.conf中
+            - server_name <业务的域名>;
+            - upstream <业务在后台填写的唯一标识>_backend {}
+    - 启动/重启/停止前台    
+        -  PATH/bin/openresty             启动
+        - PATH/bin/openresty -s stop      停止
+        - PATH/bin/openresty -s reload    重启
+    - ps:
+        - 如果使用接入层，业务可以不用开通443端口
+        - 302强制跳转需要在业务层来开发
+        - 接入层会通过HTTP协议（80端口）代理流量到后端机器，并通过在Header头中添加特殊字段来标识HTTPS流量供业务使用。
+            - `QFE-PROXY	1	标识流量来自接入层`
+            - `QFE-HTTPS	0	标识流量为HTTP`
+            - `QFE-HTTPS	1	标识流量为HTTPS`
+        - 用户ip优先使用x-real-ip字段
+            - proxy_set_header X-Real-Ip $remote_addr;
+            - proxy_set_header X-Forwarded-For $remote_addr,224.3.6.0;
+        - 使用默认的qfe/conf/conf.d/example.com配置测试https时，需要配置同目录下的example.crt & example.key
