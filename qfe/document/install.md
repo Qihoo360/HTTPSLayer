@@ -41,5 +41,5 @@
             - `QFE-HTTPS	1	标识流量为HTTPS`
         - 用户ip优先使用x-real-ip字段
             - proxy_set_header X-Real-Ip $remote_addr;
-            - proxy_set_header X-Forwarded-For $remote_addr,224.3.6.0;
+            - proxy_set_header X-Forwarded-For $remote_addr;
         - 使用默认的qfe/conf/conf.d/example.com配置测试https时，需要配置同目录下的example.crt & example.key
