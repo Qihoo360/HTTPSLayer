@@ -1,0 +1,43 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Yii console bootstrap file.
+ *
+ * @link http://www.yiiframework.com/
+ * @copyright Copyright (c) 2008 Yii Software LLC
+ * @license http://www.yiiframework.com/license/
+ */
+
+$idc = getenv('QIHOO_IDC');
+if ($idc == 'dev') {
+    $idc = 'corp';
+}
+$environ = $idc ? $idc : 'corp';
+$uname = posix_uname()['nodename'];
+if(in_array($uname, // 一些想要走开发环境的非线上测试库
+    array(
+        'zhangshuangMacbookPro.local',
+        'zhangshuangdeMacBook-Pro.local',))){
+    $environ = "corp";
+}
+
+defined("APPLICATION_CLUSTER") or define("APPLICATION_CLUSTER", $environ);
+
+// comment out the following two lines when deployed to production
+if (APPLICATION_CLUSTER == 'corp') {
+    defined('YII_DEBUG') or define('YII_DEBUG', true);
+    defined('YII_ENV') or define('YII_ENV', 'dev');
+} else {
+    defined('YII_DEBUG') or define('YII_DEBUG', true);
+    defined('YII_ENV') or define('YII_ENV', 'dev');
+}
+
+require(__DIR__ . '/vendor/autoload.php');
+require(__DIR__ . '/vendor/yiisoft/yii2/Yii.php');
+require(__DIR__ . '/library/autoload.php');
+
+$config = require(__DIR__ . '/config/console.php');
+
+$application = new yii\console\Application($config);
+$exitCode = $application->run();
+exit($exitCode);
