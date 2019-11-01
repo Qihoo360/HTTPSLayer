@@ -40,7 +40,7 @@ use yii\authclient\OAuth2;
  * @author Paul Klimov <klimov.paul@gmail.com>
  * @since 2.0
  */
-class AnotherGithub extends OAuth2
+class Another extends OAuth2
 {
     /**
      * {@inheritdoc}

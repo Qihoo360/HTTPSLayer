@@ -81,11 +81,10 @@
     * 修改:`./config/ini/cache.ini` && `./config/ini/param.ini` 相应机房redis信息.
     
 4. 创建数据库表
-    * 创建一个数据库 https `mysql  -hxx -uxx -p -e'CREATE SCHEMA https'`
     * 数据库表生成: 进入到 <path>/web/ 下 执行 `php yii migrate` 即可使用`ini/db.ini` 中配置的数据库生成基本的表结构。
 
-5. 授予 资源目录:assets && 运行时目录:runtime 读写权限
-    * `chmod -R  777 ./runtime && chmod -R 777 ./assets`
+5. 授予web项目根目录下 资源目录:web/assets && 运行时目录:runtime 读写权限
+    * `chmod -R  777 runtime && chmod -R 777 web/assets`
 
 6. 复制 `web/index.default.php` 命名为 `web/index.php`
 

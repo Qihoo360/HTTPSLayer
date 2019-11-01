@@ -15,7 +15,7 @@ $config = [
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => '7v9m0MB9XKhrVoZ5xHzK64PdjKliY54n',
+            'cookieValidationKey' => safe_get_str($params, 'cookieValidationKey', 'default-key'),
         ],
 //        'session' => [
 //            'class' => 'yii\web\DbSession',
@@ -83,7 +83,7 @@ if ($auth_method == 'oauth') {
             ];
         }
     }
-    $config['components']['authClientCollection']['clients']= $auth_clients;
+    $config['components']['authClientCollection']['clients'] = $auth_clients;
 }
 
 if (YII_ENV_DEV) {

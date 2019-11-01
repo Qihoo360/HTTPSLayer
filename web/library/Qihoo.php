@@ -32,19 +32,33 @@ class Qihoo
     private function __construct()
     {
         $params = \Yii::$app->params;
+        $this->host = isset($params["ldap"]["url"]) ? $params['ldap']['url'] : "";
     }
 
     public function goToLogin()
     {
+        $ref = $this->schema . '://' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+        $params['ref'] = $ref;
+        $url = $this->host . '?' . http_build_query($params);
+        header("Location:$url");
         exit();
     }
 
     public function getUserInfo($sid)
     {
+        $params['sid'] = $sid;
+
+
+        $info = $this->send($this->host, $params);
+
+        if (!isset($info['mail']) || !$info['mail']) {
+            return false;
+        }
+
         return [
-            'loginEmail' => "a@a.com",
-            'user' => "demo",
-            'display' => 'display',
+            'loginEmail' => $info['mail'],
+            'user' => $info['user'],
+            'display' => $info['display'],
         ];
     }
 
