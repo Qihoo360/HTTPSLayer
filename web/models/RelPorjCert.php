@@ -10,7 +10,6 @@ use Yii;
  * @property integer $id
  * @property integer $project_id
  * @property integer $certificate_id
- * @property integer $status
  * @property Project $project
  * @property Certificate $certificate
  */
@@ -49,11 +48,11 @@ class RelPorjCert extends BaseActiveRecord
 
     public function getProject()
     {
-        return $this->hasOne(Project::className(), ['id' => 'project_id']);
+        return $this->hasOne(Project::class, ['id' => 'project_id']);
     }
 
     public function getCertificate()
     {
-        return $this->hasOne(Certificate::className(), ['id' => 'certificate_id']);
+        return $this->hasOne(Certificate::class, ['id' => 'certificate_id']);
     }
 }

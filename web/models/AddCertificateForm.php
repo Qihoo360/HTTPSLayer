@@ -46,8 +46,7 @@ class AddCertificateForm extends Project
                 $existed_relation = [];
                 foreach ($this->relProjCerts as $relPorjCert) {
                     if (!in_array($relPorjCert->certificate_id, $this->certificate_ids)) { // 库里面不在更新列表里的关系删除
-//                        RelPorjCert::deleteAll(["project_id" => $this->id, "certificate_id" => $relPorjCert->certificate_id]);
-                        RelPorjCert::updateAll(["status" => \Constant::INVALID], ["project_id" => $this->id, "certificate_id" => $relPorjCert->certificate_id]); //  标记删除
+                        RelPorjCert::deleteAll(["project_id" => $this->id, "certificate_id" => $relPorjCert->certificate_id]);
                     } else { // 库里面存在在更新列表的保留
                         $existed_relation[] = $relPorjCert->certificate_id;
                     }
@@ -55,11 +54,9 @@ class AddCertificateForm extends Project
                 // 计算本次需要添加的= 在本次更新列表中,但不在库中
                 $add_relation = array_diff($this->certificate_ids, $existed_relation);
                 foreach ($add_relation as $_certificate_id) {
-                    $_model = RelPorjCert::findOne(["project_id" => $this->id, "certificate_id" => $_certificate_id]);
-                    $rel_proj_cert = $_model? $_model : new RelPorjCert();
+                    $rel_proj_cert = new RelPorjCert();
                     $rel_proj_cert->certificate_id = $_certificate_id;
                     $rel_proj_cert->project_id = $this->id;
-                    $rel_proj_cert->status = \Constant::VALID;
                     $rel_proj_cert->save();
                 }
             }

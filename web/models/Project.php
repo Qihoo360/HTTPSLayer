@@ -69,9 +69,7 @@ class Project extends BaseActiveRecord
 
     public function getRelProjCerts()
     {
-        return $this->hasMany(RelPorjCert::class, ['project_id' => 'id'])->andOnCondition([
-            "status"=> \Constant::VALID
-        ]);
+        return $this->hasMany(RelPorjCert::class, ['project_id' => 'id']);
     }
 
     public function getProjHosts()
