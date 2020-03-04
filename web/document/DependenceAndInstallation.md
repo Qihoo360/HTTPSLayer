@@ -1,14 +1,24 @@
 # web管理平台的安装步骤
 
+## 依赖
 
-### 依赖
-* PHP >= 7.0 开启fpm, 须添加php-redis扩展
+* PHP >= 7.0 开启fpm, 须添加php-redis扩展 且支持composer
+    * php官方文档：https://www.php.net/docs.php
+    * php fpm 官方介绍文档： https://www.php.net/manual/en/intro.fpm.php
+    * composer: https://getcomposer.org/
+    * php-redis: https://github.com/phpredis/phpredis
 * REDIS 建议2.8以上
+    * redis官方: https://redis.io/
 * MYSQL  建议5.6及以上
-* NGINX 
+* Nginx 
+    * Nginx 官方社区：http://nginx.org/
 
 ### 安装
-1. Nginx 增加server配置，配置参考如下
+
+#### Nginx 增加server配置
+
+配置参考如下
+
 ```
     
             server {
@@ -71,22 +81,33 @@
                }
 ```
                
-2. 系统环境变量添加配置 `export QFE_HTTPS_IDC=<你的服务器所在集群>`， 此配置决定了你使用`.ini` 的各个配置文件中的哪个集群的配置
+#### 系统环境变量设置
+
+系统环境变量添加配置 `export QFE_HTTPS_IDC=<你的服务器所在集群>`， 此配置决定了你使用`.ini` 的各个配置文件中的哪个集群的配置
   
          
-3. 配置文件修改
-    * 重命名`./config/default` 为 `./config/ini`。 
-    * 修改:`./config/ini/db.ini` 相应机房mysql信息.
-    * 修改:`./config/ini/param.ini` 不同集群配置下机房名称.
-    * 修改:`./config/ini/cache.ini` && `./config/ini/param.ini` 相应机房redis信息.
+#### 配置文件修改
+
+* 重命名`./config/default` 为 `./config/ini`。 
+* 修改:`./config/ini/db.ini` 相应机房mysql信息.
+* 修改:`./config/ini/param.ini` 不同集群配置下机房名称.
+* 修改:`./config/ini/cache.ini` && `./config/ini/param.ini` 相应机房redis信息.
+
+#### 安装依赖扩展
+
+进入到 <path>/web/ 下 执行 `composer install` 等待扩展安装完成
     
-4. 创建数据库表
-    * 数据库表生成: 进入到 <path>/web/ 下 执行 `php yii migrate` 即可使用`ini/db.ini` 中配置的数据库生成基本的表结构。
+#### 初始化创建数据库表
+    
+    数据库表生成: 进入到 <path>/web/ 下 执行 `php yii migrate` 即可使用`ini/db.ini` 中配置的数据库生成基本的表结构。
 
-5. 授予web项目根目录下 资源目录:web/assets && 运行时目录:runtime 读写权限
-    * `chmod -R  777 runtime && chmod -R 777 web/assets`
+#### 更改特定文件夹权限
 
-6. 复制 `web/index.default.php` 命名为 `web/index.php`
+授予web项目根目录下 资源目录:web/assets && 运行时目录:runtime 读写权限
+    `chmod -R  777 runtime && chmod -R 777 web/assets`
 
-7. 启动
-    * 启动php-fpm 和 nginx
+复制 `web/index.default.php` 命名为 `web/index.php`
+
+#### 启动
+
+启动php-fpm 和 nginx
