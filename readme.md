@@ -10,7 +10,7 @@ HTTPS流量快速接入管理的高效平台
 文档参考
 
 * [简介](web/document/Background.md)
-
+* [安装之前](web/document/BeforeInstall.md)
 ---
 
 后台相关
