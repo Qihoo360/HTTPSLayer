@@ -151,6 +151,10 @@ class CertificateSearch extends Certificate
             }
         }
 
+        $query->groupBy([
+            "{$tbl_certificate}.id"
+        ]);
+
         return $dataProvider;
     }
 }
